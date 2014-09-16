@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "name": "org.chromium.polyfill.blob_constructor",
+    "cordova_name": "XHR blob returnType shim",
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

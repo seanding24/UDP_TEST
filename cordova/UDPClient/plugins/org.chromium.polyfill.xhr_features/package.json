@@ -1,0 +1,12 @@
+{
+    "version": "1.0.1",
+    "name": "org.chromium.polyfill.xhr_features",
+    "cordova_name": "XHR Blob Response Type Polyfill",
+    "platforms": [],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

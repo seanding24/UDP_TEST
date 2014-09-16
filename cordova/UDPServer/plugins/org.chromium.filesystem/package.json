@@ -1,0 +1,16 @@
+{
+    "version": "1.0.2",
+    "name": "org.chromium.filesystem",
+    "cordova_name": "Chrome Apps FileSystem API",
+    "platforms": [
+        "ios",
+        "android",
+        "bb"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "version": "1.0.2",
+    "name": "org.chromium.polyfill.customevent",
+    "cordova_name": "CustomEvent constuctor shim",
+    "platforms": [
+        "android"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

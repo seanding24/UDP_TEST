@@ -1,0 +1,20 @@
+{
+    "plugin_search_path": [
+        "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/cordova",
+        "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/cordova/cordova-plugins"
+    ],
+    "lib": {
+        "android": {
+            "uri": "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/cordova/cordova-android",
+            "url": "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/cordova/cordova-android"
+        },
+        "ios": {
+            "uri": "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/cordova/cordova-ios",
+            "url": "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/cordova/cordova-ios"
+        },
+        "www": {
+            "uri": "/Users/screenrewards/.nvm/v0.10.31/lib/node_modules/cca/templates/default-app",
+            "link": false
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "version": "1.0.1",
+    "name": "org.chromium.navigation",
+    "cordova_name": "Chrome Apps Navigation",
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.1.0-dev"
+        }
+    ]
+}

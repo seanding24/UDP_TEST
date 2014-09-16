@@ -1,0 +1,15 @@
+{
+    "version": "1.0.1",
+    "name": "org.chromium.i18n",
+    "cordova_name": "Chrome Apps I18n API",
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

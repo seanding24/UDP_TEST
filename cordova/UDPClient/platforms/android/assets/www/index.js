@@ -19,7 +19,7 @@ window.addEventListener("load", function() {
       socket.sendTo (socketInfo.socketId, str2ab('Hello From SliderShow.'), bc_hostname, bc_port, function() {});
     };
     
-    socket.recvFrom(socketInfo.socketId, 1024000, function(recvFromInfo) {
+    socket.recvFrom(socketInfo.socketId, 2048, function(recvFromInfo) {
       alert(" receive ");
       console.log(" SliderShow: received response: " + ab2str(recvFromInfo.data));
       

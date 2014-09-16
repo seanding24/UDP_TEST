@@ -235,6 +235,7 @@
 /Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/_where-is-www.txt \
 /Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/www \
 /Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/www/assets \
+/Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/www/async.min.js \
 /Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/www/background.js \
 /Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/www/Backup of index.js \
 /Users/screenrewards/Documents/workspace/TestProject/UDP/cordova/UDPClient/platforms/android/assets/www/Backup of networking.js \

@@ -1,3 +1,30 @@
+function ab2str(buf) {
+  return String.fromCharCode.apply(null, new Uint8Array(buf));
+};
+
+
+function str2ab(data) {
+  var buf = new ArrayBuffer(data.length);
+  var bufView = new Uint8Array(buf);
+  for (var i = 0, strLen = data.length; i < strLen; i++) {
+    bufView[i] = data.charCodeAt(i);
+  }
+  return buf;
+}
+
+
+function createSenddataArr(data, partSize) {
+  var data_arr = [];
+  var size = data.length;
+  
+  for (var i=0; i<size; i=i+partSize) {
+    var sendData = data.substr(i, partSize);
+    data_arr.push(sendData);
+  }
+  
+  return data_arr;
+}
+
 
 window.addEventListener("load", function() {
   alert(" load ready ");
@@ -32,16 +59,17 @@ window.addEventListener("load", function() {
             var size = mydataURL.length;
             
             console.log(" mydataURL ==> " + mydataURL);
-            console.log(" length ==> " + mydataURL.length);
+            console.log(" size ==> " + size);
             
             if (size > 1000) {
-              var sendArr = createSenddataArr(mydataURL, 1000)
+              var sendArr = createSenddataArr(mydataURL, 1000);
+              console.log(" length ==> " + sendArr.length);
               sendArr.forEach(function(data){
-                console.log(" data ==> ", data);
-                socket.sendTo(socketInfo.socketId, str2ab(data), recvFromInfo.address, recvFromInfo.port, callback);
+                console.log(" data ==> " + data);
+                socket.sendTo(socketInfo.socketId, str2ab(data), recvFromInfo.address, recvFromInfo.port, function() {});
               });
             } else {
-              socket.sendTo(socketInfo.socketId, str2ab(mydataURL), recvFromInfo.address, recvFromInfo.port, callback);
+              socket.sendTo(socketInfo.socketId, str2ab(mydataURL), recvFromInfo.address, recvFromInfo.port, function() {});
             }
             
           //}, 1500);
@@ -59,29 +87,3 @@ window.addEventListener("load", function() {
 });
 
 
-function ab2str(buf) {
-  return String.fromCharCode.apply(null, new Uint8Array(buf));
-};
-
-
-function str2ab(data) {
-  var buf = new ArrayBuffer(data.length);
-  var bufView = new Uint8Array(buf);
-  for (var i = 0, strLen = data.length; i < strLen; i++) {
-    bufView[i] = data.charCodeAt(i);
-  }
-  return buf;
-}
-
-
-function createSenddataArr(data, partSize) {
-  var data_arr = [];
-  var size = data.length;
-  
-  for (var i=0; i<size; i=i+partSize) {
-    var sendData = data.substr(i, partSize);
-    data_arr.push(sendData);
-  }
-  
-  return data_arr;
-}

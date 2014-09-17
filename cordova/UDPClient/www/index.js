@@ -1,14 +1,17 @@
 
 window.addEventListener("load", function() {
   alert(" load ready ");
-  var send          = document.getElementById("send");
-  var clear         = document.getElementById('clear');
-  var revImage      = document.getElementById('testImg');
+  
   var bc_hostname   = "255.255.255.255";
   var bc_port       = 3100;
   var my_hostname   = "127.0.0.1";
   var my_port       = 3200;
   var socket        = chrome.socket;
+  var send          = document.getElementById("send");
+  var clear         = document.getElementById('clear');
+  var img = new Image();
+  var myCanvas = document.getElementById("mycanvas");
+  var ctx = myCanvas.getContext('2d');
   
   socket.create('udp', null, function(socketInfo) {
     socket.bind(socketInfo.socketId, my_hostname, my_port, function(result) {
@@ -17,38 +20,44 @@ window.addEventListener("load", function() {
     
     send.onclick = function(ev) {
     	console.log(" ======= click. ======= ");
-    
       socket.sendTo (socketInfo.socketId, str2ab('Hello From SliderShow.'), bc_hostname, bc_port, function() {});
     };
     
-    recvData();
+    clear.onclick = function(ev) {
+      //ctx.clear();
+    };
     
     var imgSrc = "";
+    var i=0;
     function recvData() {
-    	socket.recvFrom(socketInfo.socketId, 11000, function(recvFromInfo) {
+    	socket.recvFrom(socketInfo.socketId, 51000, function(recvFromInfo) {
 	      var data = ab2str(recvFromInfo.data);
 	      imgSrc = imgSrc + data;
-		  	      
-	      //alert(" receive ");
-	      console.log(" ========== ");
-	      // console.log(" SliderShow: received response: " + data);
-	      console.log(" **** data size ==> " + data.length);
-	      
+		  	i++;
+		  	
+		  	console.log(" receive i ==> ", i);
+		  	console.log(" receive data ==> ", data.substr(0, 10));
+		  	console.log(" receive data size ==> ", data.length);
+		  	
 	      if (doesEndStr(data)) {
-	      	console.log(" @@@@@ imgSrc size ==> " + imgSrc.length);
-	      	revImage.src = imgSrc.substr(0, imgSrc.length-10);	
+	      	var source = imgSrc.substr(0, imgSrc.length-10);
+	      	
+	      	console.log(" ========== ");
+	      	console.log(" **** source  ==> ", source);
+          console.log(" **** receive source size ==> " + source.length);
+	      	
+	      	img.src = source;
+          ctx.drawImage(img,0,0);
+	      	
 	      	alert(" in ");
 	      	imgSrc = "";
 	      }
 	      
 	      recvData();
 	    });
-    }
-    
-    
-    clear.onclick = function(ev) {
-      revImage.src = null;
     };
+    
+    recvData();
     
   });
   

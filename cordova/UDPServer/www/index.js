@@ -16,9 +16,15 @@ function str2ab(data) {
 function createSenddataArr(data, partSize) {
   var data_arr = [];
   var size = data.length;
+  var endStr = "0123456789";
   
   for (var i=0; i<size; i=i+partSize) {
     var sendData = data.substr(i, partSize);
+    
+    if ( i >= (size-partSize) ) {
+    	sendData = sendData + endStr;
+    	//alert(sendData);
+    }
     data_arr.push(sendData);
   }
   
@@ -28,16 +34,19 @@ function createSenddataArr(data, partSize) {
 
 window.addEventListener("load", function() {
   alert(" load ready ");
+  
   var send          = document.getElementById("send");
   var testimg       = document.getElementById("testimg");
-  var myimage       = document.getElementById("myimage");
   var myCanvas      = document.getElementById("mycanvas");
   var ctx           = myCanvas.getContext('2d');
   var my_hostname   = "127.0.0.1";
   var my_port       = 3100;
   var socket        = chrome.socket;
 
+	console.log(" socket ====> " + socket);
+
   socket.create('udp', null, function(socketInfo) {
+    console.log(" ==== udp ==== ");
     socket.bind(socketInfo.socketId, my_hostname, my_port, function(result) {
       console.log('chrome.socket.bind: result = ' + result.toString());
       read();
@@ -49,12 +58,12 @@ window.addEventListener("load", function() {
         alert(' Server: recvFromInfo: ' + recvFromInfo + ' Message: ' + ab2str(recvFromInfo.data));
         
         if (recvFromInfo.resultCode >= 0) {
-          i=2;
+          i=9;
           //setInterval(function() {
             testimg.src = i + ".png";
             ctx.drawImage(testimg, 0, 0);
-            
             //ctx.drawImage(myimage, 0, 0);
+            
             var mydataURL = myCanvas.toDataURL();
             var size = mydataURL.length;
             
@@ -62,14 +71,18 @@ window.addEventListener("load", function() {
             console.log(" size ==> " + size);
             
             if (size > 1000) {
-              var sendArr = createSenddataArr(mydataURL, 1000);
+              var sendArr = createSenddataArr(mydataURL, 10000);
+              
               console.log(" length ==> " + sendArr.length);
-              sendArr.forEach(function(data){
-                console.log(" data ==> " + data);
-                socket.sendTo(socketInfo.socketId, str2ab(data), recvFromInfo.address, recvFromInfo.port, function() {});
+              var i = 0;
+              
+              async.forEach(sendArr, function(data, callback) {
+              	//console.log(" data ==> " + data);
+              	socket.sendTo(socketInfo.socketId, str2ab(data), recvFromInfo.address, recvFromInfo.port, callback);
               });
+              
             } else {
-              socket.sendTo(socketInfo.socketId, str2ab(mydataURL), recvFromInfo.address, recvFromInfo.port, function() {});
+              socket.sendTo(socketInfo.socketId, str2ab(mydataURL), recvFromInfo.address, recvFromInfo.port);
             }
             
           //}, 1500);

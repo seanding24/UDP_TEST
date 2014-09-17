@@ -16,16 +16,35 @@ window.addEventListener("load", function() {
     });
     
     send.onclick = function(ev) {
+    	console.log(" ======= click. ======= ");
+    
       socket.sendTo (socketInfo.socketId, str2ab('Hello From SliderShow.'), bc_hostname, bc_port, function() {});
     };
     
-    socket.recvFrom(socketInfo.socketId, 2048, function(recvFromInfo) {
-      alert(" receive ");
-      console.log(" SliderShow: received response: " + ab2str(recvFromInfo.data));
-      
-      var imgSrc = ab2str(recvFromInfo.data);
-      revImage.src = imgSrc;
-    });
+    recvData();
+    
+    var imgSrc = "";
+    function recvData() {
+    	socket.recvFrom(socketInfo.socketId, 11000, function(recvFromInfo) {
+	      var data = ab2str(recvFromInfo.data);
+	      imgSrc = imgSrc + data;
+		  	      
+	      //alert(" receive ");
+	      console.log(" ========== ");
+	      // console.log(" SliderShow: received response: " + data);
+	      console.log(" **** data size ==> " + data.length);
+	      
+	      if (doesEndStr(data)) {
+	      	console.log(" @@@@@ imgSrc size ==> " + imgSrc.length);
+	      	revImage.src = imgSrc.substr(0, imgSrc.length-10);	
+	      	alert(" in ");
+	      	imgSrc = "";
+	      }
+	      
+	      recvData();
+	    });
+    }
+    
     
     clear.onclick = function(ev) {
       revImage.src = null;
@@ -49,4 +68,16 @@ function str2ab(data) {
     bufView[i] = data.charCodeAt(i);
   }
   return buf;
+}
+
+
+function doesEndStr(data) {
+	var endStr = "0123456789";
+	var doesEnd = false;
+	
+	if (data.lastIndexOf(endStr) > -1) {
+		 doesEnd = true;
+	}
+	
+	return doesEnd;
 }
